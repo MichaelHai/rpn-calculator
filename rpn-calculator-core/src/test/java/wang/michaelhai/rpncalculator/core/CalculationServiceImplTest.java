@@ -40,7 +40,7 @@ class CalculationServiceImplTest {
     public void scenario3() {
         List<BigNumber> result = calculationService.process("5 2 -");
 
-        assertBigNumberList(result ,"3");
+        assertBigNumberList(result, "3");
 
         result = calculationService.process("3 -");
 
@@ -69,5 +69,21 @@ class CalculationServiceImplTest {
         result = calculationService.process("undo");
 
         assertBigNumberList(result, "20", "5");
+    }
+
+    @Test
+    @DirtiesContext
+    public void scenario5() {
+        List<BigNumber> result = calculationService.process("7 12 2 /");
+
+        assertBigNumberList(result, "7", "6");
+
+        result = calculationService.process("*");
+
+        assertBigNumberList(result, "42");
+
+        result = calculationService.process("4 /");
+
+        assertBigNumberList(result, "10.5");
     }
 }

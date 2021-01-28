@@ -41,6 +41,24 @@ class BigNumberTest {
 
     @ParameterizedTest
     @MethodSource
+    @DisplayName("should be able to divide")
+    public void testDivide(String input1, String input2, String expect) {
+        BigNumber number1 = new BigNumber(input1);
+        BigNumber number2 = new BigNumber(input2);
+
+        assertEquals(new BigNumber(expect), number1.divide(number2));
+    }
+
+    public static Stream<Arguments> testDivide() {
+        return Stream.of(
+            Arguments.of("4", "2", "2"),
+            Arguments.of("7", "4", "1.75"),
+            Arguments.of("1", "3", "0.333333333333333")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
     @DisplayName("should be able to sqrt")
     public void testSqrt(String input, String expect) {
         BigNumber number = new BigNumber(input);

@@ -21,6 +21,8 @@ public class OperatorFactoryImpl implements OperatorFactory {
                 return new MinusOperator();
             case "*":
                 return new MultiplyOperator();
+            case "/":
+                return new DivideOperator();
             case "sqrt":
                 return new SqrtOperator();
             case "undo":
