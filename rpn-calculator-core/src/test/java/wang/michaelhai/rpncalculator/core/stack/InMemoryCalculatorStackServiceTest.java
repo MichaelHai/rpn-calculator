@@ -47,12 +47,20 @@ class InMemoryCalculatorStackServiceTest {
 
     @Test
     @DisplayName("should be able to pop elements")
-    public void settPop() {
+    public void testPop() {
         List<BigDecimal> popped = stackService.modify(2, Collections.emptyList());
 
         List<BigDecimal> remaining = stackService.peek(3);
 
         assertEquals(Arrays.asList(BigDecimal.TEN, BigDecimal.ZERO), popped);
         assertEquals(Collections.singletonList(BigDecimal.ONE), remaining);
+    }
+
+    @Test
+    @DisplayName("should be able to list all elements")
+    public void testListAll() {
+        List<BigDecimal> all = stackService.listAll();
+
+        assertEquals(Arrays.asList(BigDecimal.ONE, BigDecimal.TEN, BigDecimal.ZERO), all);
     }
 }

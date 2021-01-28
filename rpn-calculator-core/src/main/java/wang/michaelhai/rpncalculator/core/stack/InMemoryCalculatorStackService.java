@@ -1,11 +1,14 @@
 package wang.michaelhai.rpncalculator.core.stack;
 
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+@Service
 public class InMemoryCalculatorStackService implements CalculatorStackService {
     private final Stack<BigDecimal> stack = new Stack<>();
 
@@ -24,5 +27,10 @@ public class InMemoryCalculatorStackService implements CalculatorStackService {
     public List<BigDecimal> peek(int count) {
         int start = count > stack.size() ? 0 : (stack.size() - count);
         return new ArrayList<>(stack.subList(start, stack.size()));
+    }
+
+    @Override
+    public List<BigDecimal> listAll() {
+        return peek(stack.size());
     }
 }
