@@ -1,5 +1,6 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,10 +20,15 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("PlusOperator")
 public class PlusOperatorTest {
-    @InjectMocks
     private PlusOperator plusOperator;
     @Mock
     private CalculatorStack stack;
+
+    @BeforeEach
+    public void setup() {
+        plusOperator = new PlusOperator();
+        plusOperator.setCalculatorStack(stack);
+    }
 
     @Test
     @DisplayName("should be able to pop 2 numbers and push the addition")

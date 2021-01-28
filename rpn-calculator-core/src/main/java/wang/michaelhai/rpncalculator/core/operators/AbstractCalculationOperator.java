@@ -1,17 +1,10 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.List;
 
-public abstract class AbstractCalculationOperator implements Operator {
-    private final CalculatorStack calculatorStack;
-
-    protected AbstractCalculationOperator(CalculatorStack calculatorStack) {
-        this.calculatorStack = calculatorStack;
-    }
-
+public abstract class AbstractCalculationOperator extends BaseOperator {
     @Override
     public void run() {
         int operandCount = getOperandCount();

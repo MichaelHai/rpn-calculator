@@ -1,5 +1,6 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,14 +18,19 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("SqrtOperator")
 class SqrtOperatorTest {
-    @InjectMocks
     private SqrtOperator sqrtOperator;
     @Mock
     private CalculatorStack stack;
 
+    @BeforeEach
+    public void setup() {
+        sqrtOperator = new SqrtOperator();
+        sqrtOperator.setCalculatorStack(stack);
+    }
+
     @Test
     @DisplayName("should be able to pop 1 numbers and push the sqrt of it")
-    public void testPlusWillPop2NumbersAndPushTheAddition() {
+    public void testSqrtWillPop2NumbersAndPushTheAddition() {
         when(stack.peek(1)).thenReturn(Collections.singletonList(new BigNumber("4")));
 
         sqrtOperator.run();

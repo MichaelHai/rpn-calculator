@@ -1,17 +1,11 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Collections;
 import java.util.List;
 
 public class PlusOperator extends AbstractCalculationOperator {
-
-    public PlusOperator(CalculatorStack calculatorStack) {
-        super(calculatorStack);
-    }
-
     @Override
     protected int getOperandCount() {
         return 2;

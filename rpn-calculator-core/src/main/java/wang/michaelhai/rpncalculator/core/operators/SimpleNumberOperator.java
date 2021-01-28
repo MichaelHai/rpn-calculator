@@ -1,16 +1,13 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Collections;
 
-public class SimpleNumberOperator implements Operator {
-    private CalculatorStack calculatorStack;
+public class SimpleNumberOperator extends BaseOperator {
     private BigNumber number;
 
-    public SimpleNumberOperator(CalculatorStack calculatorStack, BigNumber number) {
-        this.calculatorStack = calculatorStack;
+    public SimpleNumberOperator(BigNumber number) {
         this.number = number;
     }
 

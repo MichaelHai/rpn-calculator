@@ -24,7 +24,12 @@ public class CalculationServiceImpl implements CalculationService {
         log.debug("Start processing input: {}", Arrays.toString(tokens));
         Arrays.stream(tokens)
               .map(operatorFactory::create)
-              .forEach(Operator::run);
+              .forEach(this::executeOperation);
         return stackService.listAll();
+    }
+
+    private void executeOperation(Operator operator) {
+        operator.setCalculatorStack(stackService)
+                .run();
     }
 }

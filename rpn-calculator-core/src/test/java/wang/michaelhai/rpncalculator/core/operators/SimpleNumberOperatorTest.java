@@ -21,7 +21,8 @@ class SimpleNumberOperatorTest {
     @Test
     @DisplayName("should push a single number into stack")
     public void testRunSimpleNumberOperator() {
-        SimpleNumberOperator simpleNumberOperator = new SimpleNumberOperator(stack, new BigNumber("1"));
+        SimpleNumberOperator simpleNumberOperator = new SimpleNumberOperator(new BigNumber("1"));
+        simpleNumberOperator.setCalculatorStack(stack);
         simpleNumberOperator.run();
 
         verify(stack).modify(0, Collections.singletonList(new BigNumber("1")));

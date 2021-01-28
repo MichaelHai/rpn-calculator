@@ -11,20 +11,19 @@ import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class OperatorFactoryImpl implements OperatorFactory {
-    private final CalculatorStack calculatorStack;
 
     @Override
     public Operator create(String token) {
         switch (token) {
             case "+":
-                return new PlusOperator(calculatorStack);
+                return new PlusOperator();
             case "sqrt":
-                return new SqrtOperator(calculatorStack);
+                return new SqrtOperator();
             case "clear":
-                return new ClearOperator(calculatorStack);
+                return new ClearOperator();
             default:
                 try {
-                    return new SimpleNumberOperator(calculatorStack, new BigNumber(token));
+                    return new SimpleNumberOperator(new BigNumber(token));
                 } catch (Exception ex) {
                     throw new UnsupportedOperationException("Un-supported token: " + token, ex);
                 }
