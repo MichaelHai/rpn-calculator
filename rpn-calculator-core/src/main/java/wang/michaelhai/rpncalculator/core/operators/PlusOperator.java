@@ -1,5 +1,8 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
+import wang.michaelhai.rpncalculator.core.stack.StackModifier;
+import wang.michaelhai.rpncalculator.core.stack.StackPeeker;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
