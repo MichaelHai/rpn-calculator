@@ -1,6 +1,7 @@
-package wang.michaelhai.rpncalculator.core.operators;
+package wang.michaelhai.rpncalculator.core.operators.impl;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
+import wang.michaelhai.rpncalculator.core.operators.AbstractCalculationOperator;
 
 import java.util.Collections;
 import java.util.List;

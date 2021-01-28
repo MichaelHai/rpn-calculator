@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -22,8 +21,17 @@ class BigNumberTest {
         assertEquals(new BigNumber("3"), number1.add(number2));
     }
 
+    @Test
+    @DisplayName("should be able to subtract")
+    public void testSubtract() {
+        BigNumber number1 = new BigNumber("2");
+        BigNumber number2 = new BigNumber("10");
+
+        assertEquals(new BigNumber("-8"), number1.subtract(number2));
+    }
+
     @ParameterizedTest
-    @MethodSource("testSqrt")
+    @MethodSource
     @DisplayName("should be able to sqrt")
     public void testSqrt(String input, String expect) {
         BigNumber number = new BigNumber(input);

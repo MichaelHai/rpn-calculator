@@ -1,13 +1,13 @@
-package wang.michaelhai.rpncalculator.core.operators;
+package wang.michaelhai.rpncalculator.core.operators.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import wang.michaelhai.rpncalculator.core.BigNumber;
+import wang.michaelhai.rpncalculator.core.operators.InsufficientParametersException;
 import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Arrays;

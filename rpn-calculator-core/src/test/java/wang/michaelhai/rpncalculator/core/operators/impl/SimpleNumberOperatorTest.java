@@ -1,4 +1,4 @@
-package wang.michaelhai.rpncalculator.core.operators;
+package wang.michaelhai.rpncalculator.core.operators.impl;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

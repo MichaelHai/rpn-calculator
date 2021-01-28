@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
+import wang.michaelhai.rpncalculator.core.operators.impl.*;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -17,6 +17,8 @@ public class OperatorFactoryImpl implements OperatorFactory {
         switch (token) {
             case "+":
                 return new PlusOperator();
+            case "-":
+                return new MinusOperator();
             case "sqrt":
                 return new SqrtOperator();
             case "clear":

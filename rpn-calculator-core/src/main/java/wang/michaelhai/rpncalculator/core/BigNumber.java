@@ -2,6 +2,7 @@ package wang.michaelhai.rpncalculator.core;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.function.Function;
 
 public class BigNumber extends BigDecimal {
     private static int MAX_DECIMAL = 15;
@@ -11,7 +12,11 @@ public class BigNumber extends BigDecimal {
     }
 
     public BigNumber add(BigNumber another) {
-        return new BigNumber(this.add(new BigDecimal(another.toString())).toString());
+        return delegate(another, this::add);
+    }
+
+    public BigNumber subtract(BigNumber another) {
+        return delegate(another, this::subtract);
     }
 
     /**
@@ -32,5 +37,9 @@ public class BigNumber extends BigDecimal {
         } while (!previous.equals(next));
 
         return new BigNumber(next.setScale(MAX_DECIMAL, RoundingMode.FLOOR).stripTrailingZeros().toString());
+    }
+
+    private BigNumber delegate(BigNumber number, Function<BigDecimal, BigDecimal> superFunction) {
+        return new BigNumber(superFunction.apply(new BigDecimal(number.toString())).toString());
     }
 }

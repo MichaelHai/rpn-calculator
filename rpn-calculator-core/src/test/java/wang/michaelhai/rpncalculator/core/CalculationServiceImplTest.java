@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static wang.michaelhai.rpncalculator.core.TestUtils.assertBigNumberList;
 
 @SpringBootTest(classes = RPNCalculatorConfiguration.class)
 class CalculationServiceImplTest {
@@ -18,21 +17,37 @@ class CalculationServiceImplTest {
 
     @Test
     @DirtiesContext
-    public void test1() {
+    public void scenario1() {
         List<BigNumber> result = calculationService.process("5 2");
 
-        assertEquals(Arrays.asList(new BigNumber("5"), new BigNumber("2")), result);
+        assertBigNumberList(result, "5", "2");
     }
 
     @Test
     @DirtiesContext
-    public void test2() {
+    public void scenario2() {
         List<BigNumber> result = calculationService.process("2 sqrt");
 
-        assertEquals(Collections.singletonList(new BigNumber("1.414213562373095")), result);
+        assertBigNumberList(result, "1.414213562373095");
 
         result = calculationService.process("clear 9 sqrt");
 
-        assertEquals(Collections.singletonList(new BigNumber("3")), result);
+        assertBigNumberList(result, "3");
+    }
+
+    @Test
+    @DirtiesContext
+    public void scenario3() {
+        List<BigNumber> result = calculationService.process("5 2 -");
+
+        assertBigNumberList(result ,"3");
+
+        result = calculationService.process("3 -");
+
+        assertBigNumberList(result, "0");
+
+        result = calculationService.process("clear");
+
+        assertTrue(result.isEmpty());
     }
 }
