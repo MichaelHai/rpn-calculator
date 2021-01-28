@@ -1,30 +1,27 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.StackModifier;
-import wang.michaelhai.rpncalculator.core.stack.StackPeeker;
+import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.List;
 
 public abstract class AbstractCalculationOperator implements Operator {
-    private final StackPeeker stackPeeker;
-    private final StackModifier stackModifier;
+    private final CalculatorStack calculatorStack;
 
-    protected AbstractCalculationOperator(StackPeeker stackPeeker, StackModifier stackModifier) {
-        this.stackPeeker = stackPeeker;
-        this.stackModifier = stackModifier;
+    protected AbstractCalculationOperator(CalculatorStack calculatorStack) {
+        this.calculatorStack = calculatorStack;
     }
 
     @Override
     public void run() {
         int operandCount = getOperandCount();
-        List<BigNumber> numbers = stackPeeker.peek(operandCount);
+        List<BigNumber> numbers = calculatorStack.peek(operandCount);
 
         if (numbers.size() < operandCount) {
             throw new InsufficientParametersException();
         }
         List<BigNumber> result = doOperate(numbers);
-        stackModifier.modify(operandCount, result);
+        calculatorStack.modify(operandCount, result);
     }
 
     protected abstract int getOperandCount();

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.StackModifier;
+import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Collections;
 
@@ -16,14 +16,14 @@ import static org.mockito.Mockito.verify;
 @DisplayName("SimpleNumberOperator")
 class SimpleNumberOperatorTest {
     @Mock
-    private StackModifier modifier;
+    private CalculatorStack stack;
 
     @Test
     @DisplayName("should push a single number into stack")
     public void testRunSimpleNumberOperator() {
-        SimpleNumberOperator simpleNumberOperator = new SimpleNumberOperator(modifier, new BigNumber("1"));
+        SimpleNumberOperator simpleNumberOperator = new SimpleNumberOperator(stack, new BigNumber("1"));
         simpleNumberOperator.run();
 
-        verify(modifier).modify(0, Collections.singletonList(new BigNumber("1")));
+        verify(stack).modify(0, Collections.singletonList(new BigNumber("1")));
     }
 }

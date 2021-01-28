@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wang.michaelhai.rpncalculator.core.operators.Operator;
 import wang.michaelhai.rpncalculator.core.operators.OperatorFactory;
-import wang.michaelhai.rpncalculator.core.stack.CalculatorStackService;
+import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class CalculationServiceImpl implements CalculationService {
     private final OperatorFactory operatorFactory;
-    private final CalculatorStackService stackService;
+    private final CalculatorStack stackService;
 
     @Override
     public List<BigNumber> process(String input) {

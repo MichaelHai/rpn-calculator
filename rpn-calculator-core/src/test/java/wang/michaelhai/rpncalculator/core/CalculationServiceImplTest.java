@@ -30,5 +30,9 @@ class CalculationServiceImplTest {
         List<BigNumber> result = calculationService.process("2 sqrt");
 
         assertEquals(Collections.singletonList(new BigNumber("1.414213562373095")), result);
+
+        result = calculationService.process("clear 9 sqrt");
+
+        assertEquals(Collections.singletonList(new BigNumber("3")), result);
     }
 }

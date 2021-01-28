@@ -7,8 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.StackModifier;
-import wang.michaelhai.rpncalculator.core.stack.StackPeeker;
+import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,24 +22,22 @@ public class PlusOperatorTest {
     @InjectMocks
     private PlusOperator plusOperator;
     @Mock
-    private StackPeeker stackPeeker;
-    @Mock
-    private StackModifier stackModifier;
+    private CalculatorStack stack;
 
     @Test
     @DisplayName("should be able to pop 2 numbers and push the addition")
     public void testPlusWillPop2NumbersAndPushTheAddition() {
-        when(stackPeeker.peek(2)).thenReturn(Arrays.asList(new BigNumber("1"), new BigNumber("2")));
+        when(stack.peek(2)).thenReturn(Arrays.asList(new BigNumber("1"), new BigNumber("2")));
 
         plusOperator.run();
 
-        verify(stackModifier).modify(2, Collections.singletonList(new BigNumber("3")));
+        verify(stack).modify(2, Collections.singletonList(new BigNumber("3")));
     }
 
     @Test
     @DisplayName("should be able to throw Insufficient parameters exception")
     public void testInsufficientParameters() {
-        when(stackPeeker.peek(2)).thenReturn(Collections.emptyList());
+        when(stack.peek(2)).thenReturn(Collections.emptyList());
 
         assertThrows(InsufficientParametersException.class, plusOperator::run);
     }

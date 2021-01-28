@@ -1,16 +1,15 @@
 package wang.michaelhai.rpncalculator.core.operators;
 
 import wang.michaelhai.rpncalculator.core.BigNumber;
-import wang.michaelhai.rpncalculator.core.stack.StackModifier;
-import wang.michaelhai.rpncalculator.core.stack.StackPeeker;
+import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Collections;
 import java.util.List;
 
 public class PlusOperator extends AbstractCalculationOperator {
 
-    public PlusOperator(StackPeeker stackPeeker, StackModifier stackModifier) {
-        super(stackPeeker, stackModifier);
+    public PlusOperator(CalculatorStack calculatorStack) {
+        super(calculatorStack);
     }
 
     @Override

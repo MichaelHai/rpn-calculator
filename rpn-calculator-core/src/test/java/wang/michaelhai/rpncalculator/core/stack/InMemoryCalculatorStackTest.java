@@ -12,12 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("InMemoryCalculatorStackService")
-class InMemoryCalculatorStackServiceTest {
-    private InMemoryCalculatorStackService stackService;
+class InMemoryCalculatorStackTest {
+    private InMemoryCalculatorStack stackService;
 
     @BeforeEach
     public void setup() {
-        stackService = new InMemoryCalculatorStackService();
+        stackService = new InMemoryCalculatorStack();
 
         stackService.modify(0, Arrays.asList(new BigNumber("1"), new BigNumber("10"), new BigNumber("0")));
     }

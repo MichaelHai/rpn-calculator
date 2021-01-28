@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Stack;
 
 @Service
-public class InMemoryCalculatorStackService implements CalculatorStackService {
+public class InMemoryCalculatorStack implements CalculatorStack {
     private final Stack<BigNumber> stack = new Stack<>();
 
     @Override
@@ -32,5 +32,10 @@ public class InMemoryCalculatorStackService implements CalculatorStackService {
     @Override
     public List<BigNumber> listAll() {
         return peek(stack.size());
+    }
+
+    @Override
+    public void clear() {
+        stack.clear();
     }
 }
