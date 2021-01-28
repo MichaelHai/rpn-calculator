@@ -8,10 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtils {
     public static void assertBigNumberList(List<BigNumber> result, String... expected) {
-        List<BigNumber> expectedList = Arrays.asList(expected)
-                                             .stream()
-                                             .map(BigNumber::new)
-                                             .collect(Collectors.toList());
+        List<BigNumber> expectedList = bigNumberList(expected);
         assertEquals(expectedList, result);
+    }
+
+    public static List<BigNumber> bigNumberList(String... bigNumbers) {
+        return Arrays.asList(bigNumbers)
+                     .stream()
+                     .map(BigNumber::new)
+                     .collect(Collectors.toList());
     }
 }

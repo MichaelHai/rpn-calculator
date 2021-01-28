@@ -19,8 +19,12 @@ public class OperatorFactoryImpl implements OperatorFactory {
                 return new PlusOperator();
             case "-":
                 return new MinusOperator();
+            case "*":
+                return new MultiplyOperator();
             case "sqrt":
                 return new SqrtOperator();
+            case "undo":
+                return new UndoOperator();
             case "clear":
                 return new ClearOperator();
             default:

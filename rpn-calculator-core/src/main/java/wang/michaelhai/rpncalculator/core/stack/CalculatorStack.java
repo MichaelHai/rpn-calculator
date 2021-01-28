@@ -42,4 +42,9 @@ public interface CalculatorStack {
      * Clear all the elements in the stack
      */
     void clear();
+
+    /**
+     * Undo the previous <code>modify</code> operation
+     */
+    void undo();
 }

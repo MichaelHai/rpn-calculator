@@ -50,4 +50,24 @@ class CalculationServiceImplTest {
 
         assertTrue(result.isEmpty());
     }
+
+    @Test
+    @DirtiesContext
+    public void scenario4() {
+        List<BigNumber> result = calculationService.process("5 4 3 2");
+
+        assertBigNumberList(result, "5", "4", "3", "2");
+
+        result = calculationService.process("undo undo *");
+
+        assertBigNumberList(result, "20");
+
+        result = calculationService.process("5 *");
+
+        assertBigNumberList(result, "100");
+
+        result = calculationService.process("undo");
+
+        assertBigNumberList(result, "20", "5");
+    }
 }

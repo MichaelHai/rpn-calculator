@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.util.function.Function;
 
 public class BigNumber extends BigDecimal {
-    private static int MAX_DECIMAL = 15;
+    private static final int MAX_DECIMAL = 15;
 
     public BigNumber(String s) {
         super(s);
@@ -17,6 +17,10 @@ public class BigNumber extends BigDecimal {
 
     public BigNumber subtract(BigNumber another) {
         return delegate(another, this::subtract);
+    }
+
+    public BigNumber multiply(BigNumber another) {
+        return delegate(another, this::multiply);
     }
 
     /**

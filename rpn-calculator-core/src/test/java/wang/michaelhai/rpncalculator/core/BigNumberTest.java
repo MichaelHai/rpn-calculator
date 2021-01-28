@@ -30,6 +30,15 @@ class BigNumberTest {
         assertEquals(new BigNumber("-8"), number1.subtract(number2));
     }
 
+    @Test
+    @DisplayName("should be able to multiply")
+    public void testMultiply() {
+        BigNumber number1 = new BigNumber("20");
+        BigNumber number2 = new BigNumber("7");
+
+        assertEquals(new BigNumber("140"), number1.multiply(number2));
+    }
+
     @ParameterizedTest
     @MethodSource
     @DisplayName("should be able to sqrt")
