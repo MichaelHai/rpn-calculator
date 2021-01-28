@@ -14,16 +14,23 @@
     </parent>
     <groupId>wang.michaelhai</groupId>
     <artifactId>rpn-calculator</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${version}</version>
     <name>rpn-calculator</name>
     <description>An RPC calculator</description>
     <packaging>pom</packaging>
     <properties>
+        <version>0.0.1-SNAPSHOT</version>
         <java.version>1.8</java.version>
         <junit.version>5.7.0</junit.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>wang.michaelhai</groupId>
+                <artifactId>rpn-calculator-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>

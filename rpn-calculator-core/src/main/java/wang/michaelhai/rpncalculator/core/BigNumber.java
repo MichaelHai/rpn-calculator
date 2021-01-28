@@ -52,4 +52,8 @@ public class BigNumber extends BigDecimal {
     private BigNumber delegate(BigNumber number, Function<BigDecimal, BigDecimal> superFunction) {
         return new BigNumber(superFunction.apply(new BigDecimal(number.toString())).toString());
     }
+
+    public String toStringWithMaxScale(int maxScale) {
+        return this.setScale(maxScale, RoundingMode.FLOOR).stripTrailingZeros().toPlainString();
+    }
 }
