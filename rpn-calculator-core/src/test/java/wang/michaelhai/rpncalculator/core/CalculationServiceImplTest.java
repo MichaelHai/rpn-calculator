@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static wang.michaelhai.rpncalculator.core.TestUtils.assertBigNumberList;
 
 @SpringBootTest(classes = RPNCalculatorConfiguration.class)
@@ -25,8 +26,14 @@ class CalculationServiceImplTest {
     public void scenarioTest(Stream<TestStep> steps) {
         steps.forEach(
             step -> {
-                List<BigNumber> result = calculationService.process(step.getInput());
-                assertBigNumberList(result, step.getStackStatus());
+                try {
+                    List<BigNumber> result = calculationService.process(step.getInput());
+                    assertBigNumberList(result, step.getStackStatus());
+                } catch (InvalidOperationException e) {
+                    assertEquals(step.getErrorOperator(), e.getErrorOperator());
+                    assertEquals(step.getErrorPosition(), e.getErrorPosition());
+                    assertBigNumberList(e.getStackStatus(), step.getStackStatus());
+                }
             }
         );
     }
@@ -37,7 +44,10 @@ class CalculationServiceImplTest {
             Arguments.of(scenario2()),
             Arguments.of(scenario3()),
             Arguments.of(scenario4()),
-            Arguments.of(scenario5())
+            Arguments.of(scenario5()),
+            Arguments.of(scenario6()),
+            Arguments.of(scenario7()),
+            Arguments.of(scenario8())
         );
     }
 
@@ -77,14 +87,50 @@ class CalculationServiceImplTest {
         );
     }
 
+    private static Stream<TestStep> scenario6() {
+        return Stream.of(
+            TestStep.of("1 2 3 4 5", "1", "2", "3", "4", "5"),
+            TestStep.of("*", "1", "2", "3", "20"),
+            TestStep.of("clear 3 4 -", "-1")
+        );
+    }
+
+    private static Stream<TestStep> scenario7() {
+        return Stream.of(
+            TestStep.of("1 2 3 4 5", "1", "2", "3", "4", "5"),
+            TestStep.of("* * * *", "120")
+        );
+    }
+
+    private static Stream<TestStep> scenario8() {
+        return Stream.of(
+            TestStep.of("1 2 3 * 5 + * * 6 5", "*", 14, "11")
+        );
+    }
+
+
     @Data
-    @AllArgsConstructor
     private static class TestStep {
         private String input;
         private String[] stackStatus;
+        private String errorOperator;
+        private int errorPosition;
+
+
+        public TestStep(String input, String[] stackStatus) {
+            this.input = input;
+            this.stackStatus = stackStatus;
+        }
 
         public static TestStep of(String input, String... stackStatus) {
             return new TestStep(input, stackStatus);
+        }
+
+        public static TestStep of(String input, String errorOperator, int errorPosition, String... stackStatus) {
+            TestStep step = TestStep.of(input, stackStatus);
+            step.errorOperator = errorOperator;
+            step.errorPosition = errorPosition;
+            return step;
         }
     }
 }
