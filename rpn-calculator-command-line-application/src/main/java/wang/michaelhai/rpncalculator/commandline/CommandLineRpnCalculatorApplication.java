@@ -24,11 +24,6 @@ public class CommandLineRpnCalculatorApplication implements CommandLineRunner {
         SpringApplication.run(CommandLineRpnCalculatorApplication.class, args);
     }
 
-    @Bean
-    public PrintStream printStream() {
-        return System.out;
-    }
-
     @Override
     public void run(String... args) throws Exception {
         log.info("RPN calculator started");
