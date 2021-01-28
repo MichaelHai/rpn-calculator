@@ -1,13 +1,17 @@
 package wang.michaelhai.rpncalculator.core;
 
-import org.junit.jupiter.api.Test;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static wang.michaelhai.rpncalculator.core.TestUtils.assertBigNumberList;
 
 @SpringBootTest(classes = RPNCalculatorConfiguration.class)
@@ -15,75 +19,72 @@ class CalculationServiceImplTest {
     @Autowired
     private CalculationService calculationService;
 
-    @Test
+    @ParameterizedTest
+    @MethodSource
     @DirtiesContext
-    public void scenario1() {
-        List<BigNumber> result = calculationService.process("5 2");
-
-        assertBigNumberList(result, "5", "2");
+    public void scenarioTest(Stream<TestStep> steps) {
+        steps.forEach(
+            step -> {
+                List<BigNumber> result = calculationService.process(step.getInput());
+                assertBigNumberList(result, step.getStackStatus());
+            }
+        );
     }
 
-    @Test
-    @DirtiesContext
-    public void scenario2() {
-        List<BigNumber> result = calculationService.process("2 sqrt");
-
-        assertBigNumberList(result, "1.414213562373095");
-
-        result = calculationService.process("clear 9 sqrt");
-
-        assertBigNumberList(result, "3");
+    public static Stream<Arguments> scenarioTest() {
+        return Stream.of(
+            Arguments.of(scenario1()),
+            Arguments.of(scenario2()),
+            Arguments.of(scenario3()),
+            Arguments.of(scenario4()),
+            Arguments.of(scenario5())
+        );
     }
 
-    @Test
-    @DirtiesContext
-    public void scenario3() {
-        List<BigNumber> result = calculationService.process("5 2 -");
-
-        assertBigNumberList(result, "3");
-
-        result = calculationService.process("3 -");
-
-        assertBigNumberList(result, "0");
-
-        result = calculationService.process("clear");
-
-        assertTrue(result.isEmpty());
+    private static Stream<TestStep> scenario1() {
+        return Stream.of(TestStep.of("5 2", "5", "2"));
     }
 
-    @Test
-    @DirtiesContext
-    public void scenario4() {
-        List<BigNumber> result = calculationService.process("5 4 3 2");
-
-        assertBigNumberList(result, "5", "4", "3", "2");
-
-        result = calculationService.process("undo undo *");
-
-        assertBigNumberList(result, "20");
-
-        result = calculationService.process("5 *");
-
-        assertBigNumberList(result, "100");
-
-        result = calculationService.process("undo");
-
-        assertBigNumberList(result, "20", "5");
+    private static Stream<TestStep> scenario2() {
+        return Stream.of(
+            TestStep.of("2 sqrt", "1.414213562373095"),
+            TestStep.of("clear 9 sqrt", "3")
+        );
     }
 
-    @Test
-    @DirtiesContext
-    public void scenario5() {
-        List<BigNumber> result = calculationService.process("7 12 2 /");
+    private static Stream<TestStep> scenario3() {
+        return Stream.of(
+            TestStep.of("5 2 -", "3"),
+            TestStep.of("3 -", "0"),
+            TestStep.of("clear")
+        );
+    }
 
-        assertBigNumberList(result, "7", "6");
+    private static Stream<TestStep> scenario4() {
+        return Stream.of(
+            TestStep.of("5 4 3 2", "5", "4", "3", "2"),
+            TestStep.of("undo undo *", "20"),
+            TestStep.of("5 *", "100"),
+            TestStep.of("undo", "20", "5")
+        );
+    }
 
-        result = calculationService.process("*");
+    private static Stream<TestStep> scenario5() {
+        return Stream.of(
+            TestStep.of("7 12 2 /", "7", "6"),
+            TestStep.of("*", "42"),
+            TestStep.of("4 /", "10.5")
+        );
+    }
 
-        assertBigNumberList(result, "42");
+    @Data
+    @AllArgsConstructor
+    private static class TestStep {
+        private String input;
+        private String[] stackStatus;
 
-        result = calculationService.process("4 /");
-
-        assertBigNumberList(result, "10.5");
+        public static TestStep of(String input, String... stackStatus) {
+            return new TestStep(input, stackStatus);
+        }
     }
 }
