@@ -1,8 +1,8 @@
 package wang.michaelhai.rpncalculator.core.stack;
 
 import org.springframework.stereotype.Service;
+import wang.michaelhai.rpncalculator.core.BigNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.Stack;
 
 @Service
 public class InMemoryCalculatorStackService implements CalculatorStackService {
-    private final Stack<BigDecimal> stack = new Stack<>();
+    private final Stack<BigNumber> stack = new Stack<>();
 
     @Override
-    public List<BigDecimal> modify(int numberToPop, List<BigDecimal> valuesToPush) {
-        BigDecimal[] result = new BigDecimal[numberToPop];
+    public List<BigNumber> modify(int numberToPop, List<BigNumber> valuesToPush) {
+        BigNumber[] result = new BigNumber[numberToPop];
         for (int i = 0; i < numberToPop; i++) {
-            BigDecimal popped = stack.pop();
+            BigNumber popped = stack.pop();
             result[numberToPop - i - 1] = popped;
         }
         valuesToPush.forEach(stack::push);
@@ -24,13 +24,13 @@ public class InMemoryCalculatorStackService implements CalculatorStackService {
     }
 
     @Override
-    public List<BigDecimal> peek(int count) {
+    public List<BigNumber> peek(int count) {
         int start = count > stack.size() ? 0 : (stack.size() - count);
         return new ArrayList<>(stack.subList(start, stack.size()));
     }
 
     @Override
-    public List<BigDecimal> listAll() {
+    public List<BigNumber> listAll() {
         return peek(stack.size());
     }
 }

@@ -1,6 +1,7 @@
 package wang.michaelhai.rpncalculator.core.stack;
 
-import java.math.BigDecimal;
+import wang.michaelhai.rpncalculator.core.BigNumber;
+
 import java.util.List;
 
 /**
@@ -17,6 +18,6 @@ public interface StackPeeker {
      * @param count the <code>count</code> of number to peek
      * @return the numbers peeked
      */
-    List<BigDecimal> peek(int count);
+    List<BigNumber> peek(int count);
 
 }

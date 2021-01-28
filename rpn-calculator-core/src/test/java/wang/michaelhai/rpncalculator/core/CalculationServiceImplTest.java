@@ -5,22 +5,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = RPNCalculatorConfiguration.class)
-@DirtiesContext
 class CalculationServiceImplTest {
     @Autowired
     private CalculationService calculationService;
 
     @Test
+    @DirtiesContext
     public void test1() {
-        List<BigDecimal> result = calculationService.process("5 2");
+        List<BigNumber> result = calculationService.process("5 2");
 
-        assertEquals(Arrays.asList(BigDecimal.valueOf(5), BigDecimal.valueOf(2)), result);
+        assertEquals(Arrays.asList(new BigNumber("5"), new BigNumber("2")), result);
+    }
+
+    @Test
+    @DirtiesContext
+    public void test2() {
+        List<BigNumber> result = calculationService.process("2 sqrt");
+
+        assertEquals(Collections.singletonList(new BigNumber("1.414213562373095")), result);
     }
 }

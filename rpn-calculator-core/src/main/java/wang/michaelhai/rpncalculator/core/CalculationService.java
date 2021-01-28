@@ -1,6 +1,5 @@
 package wang.michaelhai.rpncalculator.core;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,5 +11,5 @@ public interface CalculationService {
      * @param input a whitespace separated lists of numbers and operators
      * @return the elements in the stack with bottom first order
      */
-    List<BigDecimal> process(String input);
+    List<BigNumber> process(String input);
 }

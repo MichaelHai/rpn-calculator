@@ -8,7 +8,6 @@ import wang.michaelhai.rpncalculator.core.operators.Operator;
 import wang.michaelhai.rpncalculator.core.operators.OperatorFactory;
 import wang.michaelhai.rpncalculator.core.stack.CalculatorStackService;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class CalculationServiceImpl implements CalculationService {
     private final CalculatorStackService stackService;
 
     @Override
-    public List<BigDecimal> process(String input) {
+    public List<BigNumber> process(String input) {
         String[] tokens = input.trim().split("\\s+");
         log.debug("Start processing input: {}", Arrays.toString(tokens));
         Arrays.stream(tokens)

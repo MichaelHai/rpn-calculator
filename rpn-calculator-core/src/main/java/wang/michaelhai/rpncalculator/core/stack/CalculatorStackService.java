@@ -1,6 +1,7 @@
 package wang.michaelhai.rpncalculator.core.stack;
 
-import java.math.BigDecimal;
+import wang.michaelhai.rpncalculator.core.BigNumber;
+
 import java.util.List;
 
 public interface CalculatorStackService extends StackPeeker, StackModifier {
@@ -9,5 +10,5 @@ public interface CalculatorStackService extends StackPeeker, StackModifier {
      * @see StackPeeker#peek(int)
      * @return all elements in the stack
      */
-    List<BigDecimal> listAll();
+    List<BigNumber> listAll();
 }

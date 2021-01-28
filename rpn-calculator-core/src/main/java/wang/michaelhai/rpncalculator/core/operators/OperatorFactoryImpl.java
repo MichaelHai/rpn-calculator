@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import wang.michaelhai.rpncalculator.core.BigNumber;
 import wang.michaelhai.rpncalculator.core.stack.CalculatorStackService;
-
-import java.math.BigDecimal;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -19,9 +18,11 @@ public class OperatorFactoryImpl implements OperatorFactory {
         switch (token) {
             case "+":
                 return new PlusOperator(calculatorStackService, calculatorStackService);
+            case "sqrt":
+                return new SqrtOperator(calculatorStackService, calculatorStackService);
             default:
                 try {
-                    return new SimpleNumberOperator(calculatorStackService, new BigDecimal(token));
+                    return new SimpleNumberOperator(calculatorStackService, new BigNumber(token));
                 } catch (Exception ex) {
                     throw new UnsupportedOperationException("Un-supported token: " + token, ex);
                 }

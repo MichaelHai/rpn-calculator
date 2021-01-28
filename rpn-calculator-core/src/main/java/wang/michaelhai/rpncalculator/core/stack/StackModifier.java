@@ -1,6 +1,7 @@
 package wang.michaelhai.rpncalculator.core.stack;
 
-import java.math.BigDecimal;
+import wang.michaelhai.rpncalculator.core.BigNumber;
+
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ public interface StackModifier {
      *
      * The values will be pushed one by one from the beginning of the given list.
      * The order of the popped value follows the same order as <code>StackPeeker</code>
-     * @see StackPeeker#peek(int) 
+     * @see StackPeeker#peek(int)
      *
      * @param numberToPop  pop the top numbers from the stack
      * @param valuesToPush values to push after popping
      * @return the values popped from the stack
      */
-    List<BigDecimal> modify(int numberToPop, List<BigDecimal> valuesToPush);
+    List<BigNumber> modify(int numberToPop, List<BigNumber> valuesToPush);
 }

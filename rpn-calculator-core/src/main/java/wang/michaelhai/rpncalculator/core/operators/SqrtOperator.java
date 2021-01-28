@@ -7,20 +7,20 @@ import wang.michaelhai.rpncalculator.core.stack.StackPeeker;
 import java.util.Collections;
 import java.util.List;
 
-public class PlusOperator extends AbstractCalculationOperator {
+public class SqrtOperator extends AbstractCalculationOperator {
 
-    public PlusOperator(StackPeeker stackPeeker, StackModifier stackModifier) {
+    public SqrtOperator(StackPeeker stackPeeker, StackModifier stackModifier) {
         super(stackPeeker, stackModifier);
     }
 
     @Override
     protected int getOperandCount() {
-        return 2;
+        return 1;
     }
 
     @Override
     protected List<BigNumber> doOperate(List<BigNumber> operands) {
-        BigNumber result = operands.get(0).add(operands.get(1));
-        return Collections.singletonList(result);
+        BigNumber number = operands.get(0);
+        return Collections.singletonList(number.sqrt());
     }
 }
