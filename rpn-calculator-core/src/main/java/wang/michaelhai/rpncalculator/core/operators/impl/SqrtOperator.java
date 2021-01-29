@@ -15,6 +15,9 @@ public class SqrtOperator extends AbstractCalculationOperator {
     @Override
     protected List<BigNumber> doOperate(List<BigNumber> operands) {
         BigNumber number = operands.get(0);
+        if (new BigNumber("0").compareTo(number) > 0) {
+            throw new SqrtOnNegativeException();
+        }
         return Collections.singletonList(number.sqrt());
     }
 }

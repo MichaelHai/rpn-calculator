@@ -27,8 +27,8 @@ public class CalculationServiceImpl implements CalculationService {
         for (Token token : tokens) {
             try {
                 this.executeOperation(token.operator);
-            } catch (InsufficientParametersException e) {
-                throw new InvalidOperationException(token.operator, token.pos, stackService.listAll());
+            } catch (Exception e) {
+                throw new InvalidOperationException(token.operator, token.pos, stackService.listAll(), e);
             }
         }
         return stackService.listAll();

@@ -33,7 +33,7 @@ public class OperatorFactoryImpl implements OperatorFactory {
                 try {
                     return new SimpleNumberOperator(new BigNumber(token));
                 } catch (Exception ex) {
-                    throw new UnsupportedOperationException("Un-supported token: " + token, ex);
+                    throw new UnsupportedTokenException(token);
                 }
         }
     }

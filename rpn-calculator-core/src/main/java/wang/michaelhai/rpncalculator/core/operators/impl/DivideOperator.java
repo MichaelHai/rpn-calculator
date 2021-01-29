@@ -14,6 +14,9 @@ public class DivideOperator extends AbstractCalculationOperator {
 
     @Override
     protected List<BigNumber> doOperate(List<BigNumber> operands) {
+        if (new BigNumber("0").equals(operands.get(1))) {
+            throw new DivideByZeroException();
+        }
         BigNumber result = operands.get(0).divide(operands.get(1));
         return Collections.singletonList(result);
     }

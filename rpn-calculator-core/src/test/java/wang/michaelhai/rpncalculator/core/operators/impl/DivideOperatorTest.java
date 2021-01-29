@@ -11,6 +11,7 @@ import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,5 +28,16 @@ class DivideOperatorTest {
         divideOperator.run();
 
         verify(stack).modify(2, Collections.singletonList(new BigNumber("0.5")));
+    }
+
+    @Test
+    @DisplayName("should throw error when divide by zero")
+    public void testDivideByZero(@Mock CalculatorStack stack) {
+        when(stack.peek(2)).thenReturn(Arrays.asList(new BigNumber("1"), new BigNumber("0")));
+
+        DivideOperator divideOperator = new DivideOperator();
+        divideOperator.setCalculatorStack(stack);
+
+        assertThrows(DivideByZeroException.class, divideOperator::run);
     }
 }

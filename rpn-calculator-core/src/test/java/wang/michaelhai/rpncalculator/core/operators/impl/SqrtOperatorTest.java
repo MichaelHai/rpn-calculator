@@ -11,6 +11,7 @@ import wang.michaelhai.rpncalculator.core.stack.CalculatorStack;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,14 @@ class SqrtOperatorTest {
         sqrtOperator.run();
 
         verify(stack).modify(1, Collections.singletonList(new BigNumber("2")));
+    }
+
+    @Test
+    @DisplayName("should throw exception when input is negative")
+    public void testNegative() {
+        when(stack.peek(1)).thenReturn(Collections.singletonList(new BigNumber("-4")));
+
+        assertThrows(SqrtOnNegativeException.class, sqrtOperator::run);
     }
 
 }

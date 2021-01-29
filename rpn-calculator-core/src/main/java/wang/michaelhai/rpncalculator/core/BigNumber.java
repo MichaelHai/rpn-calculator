@@ -36,6 +36,9 @@ public class BigNumber extends BigDecimal {
      * @return sqrt root of this BigNumber with maximum of 15 decimal places
      */
     public BigNumber sqrt() {
+        if (new BigNumber("0").equals(this)) {
+            return new BigNumber("0");
+        }
         BigDecimal next = this.setScale(MAX_DECIMAL, RoundingMode.FLOOR);
         BigDecimal previous;
         do {

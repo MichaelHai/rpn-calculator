@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import wang.michaelhai.rpncalculator.core.BigNumber;
 import wang.michaelhai.rpncalculator.core.InvalidOperationException;
+import wang.michaelhai.rpncalculator.core.operators.InsufficientParametersException;
 
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ class CommandLinePrinterImplTest {
     @DisplayName("should format error pretty")
     public void testPrintError() {
         formatter.printError(new InvalidOperationException("*", 10, Arrays.asList(new BigNumber("2"), new BigNumber(
-            "-1"))));
+            "-1")), new InsufficientParametersException()));
 
         verify(printStream).println("operator * (position: 11): insufficient parameters");
         verify(printStream).println("stack: 2 -1");

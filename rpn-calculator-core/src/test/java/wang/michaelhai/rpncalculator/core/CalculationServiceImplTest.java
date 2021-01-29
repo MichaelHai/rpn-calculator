@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static wang.michaelhai.rpncalculator.core.ErrorType.DIVIDE_BY_ZERO;
+import static wang.michaelhai.rpncalculator.core.ErrorType.INSUFFICIENT_PARAMETER;
 import static wang.michaelhai.rpncalculator.core.TestUtils.assertBigNumberList;
 
 @SpringBootTest(classes = RPNCalculatorConfiguration.class)
@@ -31,6 +33,7 @@ class CalculationServiceImplTest {
                 } catch (InvalidOperationException e) {
                     assertEquals(step.getErrorOperator(), e.getErrorOperator());
                     assertEquals(step.getErrorPosition(), e.getErrorPosition());
+                    assertEquals(step.getErrorType(), e.getErrorType());
                     assertBigNumberList(e.getStackStatus(), step.getStackStatus());
                 }
             }
@@ -46,7 +49,8 @@ class CalculationServiceImplTest {
             Arguments.of(scenario5()),
             Arguments.of(scenario6()),
             Arguments.of(scenario7()),
-            Arguments.of(scenario8())
+            Arguments.of(scenario8()),
+            Arguments.of(scenario9())
         );
     }
 
@@ -103,7 +107,13 @@ class CalculationServiceImplTest {
 
     private static Stream<TestStep> scenario8() {
         return Stream.of(
-            TestStep.of("1 2 3 * 5 + * * 6 5", "*", 14, "11")
+            TestStep.of("1 2 3 * 5 + * * 6 5", "*", 14, INSUFFICIENT_PARAMETER, "11")
+        );
+    }
+
+    private static Stream<TestStep> scenario9() {
+        return Stream.of(
+            TestStep.of("3 2 2 - /", "/", 8, DIVIDE_BY_ZERO, "3", "0")
         );
     }
 
@@ -114,6 +124,7 @@ class CalculationServiceImplTest {
         private String[] stackStatus;
         private String errorOperator;
         private int errorPosition;
+        private ErrorType errorType;
 
 
         public TestStep(String input, String[] stackStatus) {
@@ -125,10 +136,12 @@ class CalculationServiceImplTest {
             return new TestStep(input, stackStatus);
         }
 
-        public static TestStep of(String input, String errorOperator, int errorPosition, String... stackStatus) {
+        public static TestStep of(String input, String errorOperator, int errorPosition,
+            ErrorType errorType, String... stackStatus) {
             TestStep step = TestStep.of(input, stackStatus);
             step.errorOperator = errorOperator;
             step.errorPosition = errorPosition;
+            step.errorType = errorType;
             return step;
         }
     }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.michaelhai.rpncalculator.core.BigNumber;
+import wang.michaelhai.rpncalculator.core.ErrorType;
 import wang.michaelhai.rpncalculator.core.InvalidOperationException;
 
 import java.io.PrintStream;
@@ -29,11 +30,28 @@ public class CommandLinePrinterImpl implements CommandLinePrinter {
     @Override
     public void printError(InvalidOperationException e) {
         String toPrint = String.format(
-            "operator %s (position: %d): insufficient parameters",
+            "operator %s (position: %d): %s",
             e.getErrorOperator(),
-            e.getErrorPosition() + 1
+            e.getErrorPosition() + 1,
+            errorMessage(e.getErrorType())
         );
         out.println(toPrint);
         printStack(e.getStackStatus());
+    }
+
+    private String errorMessage(ErrorType type) {
+        switch (type) {
+            case INSUFFICIENT_PARAMETER:
+                return "insufficient parameters";
+            case DIVIDE_BY_ZERO:
+                return "divide by zero";
+            case SQRT_ON_NEGATIVE:
+                return "sqrt on negative";
+            case UNSUPPORTED_TOKEN:
+                return "unsupported token";
+            case UNKNOWN:
+            default:
+                return "unknown error";
+        }
     }
 }

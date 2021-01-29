@@ -70,7 +70,8 @@ class BigNumberTest {
             Arguments.of("4", "2"),
             Arguments.of("3", "1.732050807568877"),
             Arguments.of("5", "2.236067977499789"),
-            Arguments.of("1.44", "1.2")
+            Arguments.of("1.44", "1.2"),
+            Arguments.of("0", "0")
         );
     }
 
